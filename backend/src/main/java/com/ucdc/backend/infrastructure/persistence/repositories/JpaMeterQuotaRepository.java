@@ -13,7 +13,7 @@ public interface JpaMeterQuotaRepository extends JpaRepository<MeterQuotaEntity,
 
     @Query("""
       select q from MeterQuotaEntity q
-      where q.meterId = :meterId
+      where q.id = :meterId
         and :at >= q.validFrom
         and (q.validTo is null or :at < q.validTo)
       order by q.validFrom desc

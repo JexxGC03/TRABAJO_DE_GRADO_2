@@ -10,7 +10,7 @@ public class BackendApplication {
         SpringApplication.run(BackendApplication.class, args);
         System.out.println("""
                 =================================================\s
-                  Run Spring Boot Application: 2025-11-05\s
+                  Run Spring Boot Application: 2025-11-06\s
                 ================================================\s""");
     }
     

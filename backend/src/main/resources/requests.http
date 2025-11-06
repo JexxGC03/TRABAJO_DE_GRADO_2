@@ -178,11 +178,11 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpI
 { "timestamp": "2025-10-02T00:00:00Z", "kwhAccum": 105.00 }
 
 ###
-POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+POST http://localhost:8081/api/meters/b01f2edc-aaaa-4b4c-9f11-111111111111/readings
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiMzMzMzMzMzMtMzMzMy0zMzMzLTMzMzMtMzMzMzMzMzMzMzMzIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDYwMzA1LCJpYXQiOjE3NjI0NTY3MDV9.wf5b6o3d5ZdxQRkYMiWPozUUizIkPVREiHcLsho1XVg
 
-{ "timestamp": "2025-10-02T12:00:00Z", "kwhAccum": 106.20 }
+{ "timestamp": "2025-11-18T00:00:00Z", "kwhAccum": 16.20 }
 
 ###
 POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings

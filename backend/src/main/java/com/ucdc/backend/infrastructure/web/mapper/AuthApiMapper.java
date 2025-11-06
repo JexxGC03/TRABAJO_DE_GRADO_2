@@ -1,9 +1,13 @@
 package com.ucdc.backend.infrastructure.web.mapper;
 
 import com.ucdc.backend.application.dto.auth.*;
+import com.ucdc.backend.application.dto.user.ChangePasswordCommand;
 import com.ucdc.backend.infrastructure.web.dto.auth.*;
+import com.ucdc.backend.infrastructure.web.dto.user.ChangePasswordRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface AuthApiMapper {
@@ -42,4 +46,7 @@ public interface AuthApiMapper {
                 (long) result.accessTtl()
         );
     }
+
+    @Mapping(target = "userId", expression = "java(userId)")
+    ChangePasswordCommand toCommand(UUID userId, ChangePasswordRequest req);
 }

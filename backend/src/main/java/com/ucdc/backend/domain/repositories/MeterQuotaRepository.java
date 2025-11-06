@@ -8,5 +8,7 @@ import java.util.UUID;
 
 public interface MeterQuotaRepository {
     Optional<MeterQuota> findActiveByMeter(UUID meterId, OffsetDateTime at);
-    void save(MeterQuota quota);
+    public MeterQuota save(MeterQuota quota);
+    Optional<MeterQuota> findByMeterId(UUID meterId);                  // crea/actualiza vigente
+    boolean existsByMeterId(UUID meterId);
 }

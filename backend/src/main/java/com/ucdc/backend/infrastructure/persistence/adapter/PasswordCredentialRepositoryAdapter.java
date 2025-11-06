@@ -22,8 +22,8 @@ public class PasswordCredentialRepositoryAdapter implements PasswordCredentialRe
     private final CredentialJpaMapper mapper;
 
     @Override
-    public Optional<String> findByUserId(UUID userId) {
-        return jpa.findById(userId).map(PasswordCredentialEntity::getPasswordHash);
+    public Optional<PasswordCredential> findByUserId(UUID userId) {
+        return jpa.findById(userId).map(mapper::toDomain);
     }
 
     @Override

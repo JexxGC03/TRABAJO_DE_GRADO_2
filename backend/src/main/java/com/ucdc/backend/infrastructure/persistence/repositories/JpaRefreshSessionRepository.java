@@ -10,4 +10,5 @@ public interface JpaRefreshSessionRepository extends JpaRepository<RefreshSessio
     Optional<RefreshSessionEntity> findByRefreshToken(String token);
     boolean existsByRefreshToken(String token);
     void deleteByRefreshToken(String token);
+    void deleteAllByUserId(UUID userId);
 }

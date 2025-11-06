@@ -1,7 +1,7 @@
 package com.ucdc.backend.application.service.auth;
 
 import com.ucdc.backend.application.dto.user.UpdateProfileCommand;
-import com.ucdc.backend.application.services.auth.UpdateProfileService;
+import com.ucdc.backend.application.services.user.UpdateProfileService;
 import com.ucdc.backend.domain.exceptions.logic.ConflictException;
 import com.ucdc.backend.domain.exceptions.logic.NotFoundException;
 import com.ucdc.backend.domain.model.ClientUser;

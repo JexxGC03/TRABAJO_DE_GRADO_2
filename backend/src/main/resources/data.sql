@@ -6,7 +6,7 @@
 -- plain password for carlos.perez@example.com: Password123!
 INSERT INTO users (id, full_name, email, citizen_id, service_number, phone, role, status, created_at, updated_at)
 VALUES    ('11111111-1111-1111-1111-111111111111', 'Carlos Perez', 'carlos.perez@example.com', '1234567890', 'SV-0001', '+571300000001', 'CLIENT', 'ACTIVE', '2025-10-01T08:00:00+00:00', '2025-10-01T08:00:00+00:00');
--- plain password for admin@example.com: AdminPass!2025
+    -- plain password for admin@example.com: AdminPass!2025
 INSERT INTO users (id, full_name, email, citizen_id, service_number, phone, role, status, created_at, updated_at)
 VALUES ('22222222-2222-2222-2222-222222222222', 'Admin Root', 'admin@example.com', '0987654321', 'SV-0002', '+571300000002', 'ADMIN', 'ACTIVE', '2025-10-01T08:00:00+00:00', '2025-10-01T08:00:00+00:00');
     -- plain password: TestPass!2025  laura.gomez@example.com
@@ -43,8 +43,8 @@ VALUES
 
 -- === Meter Quota ===
 -- Cuota mensual de 250 kWh vigente desde el 1-nov-2025
-INSERT INTO meter_quotas (id, meter_id, periodicity, kwh_limit, valid_from, valid_to)
-VALUES ('44444444-4444-4444-4444-444444444444', 'b01f2edc-aaaa-4b4c-9f11-111111111111', 'MONTHLY', 250.00, '2025-11-01T00:00:00Z', NULL);
+INSERT INTO meter_quotas (meter_id, periodicity, kwh_limit, valid_from, valid_to)
+VALUES ( 'b01f2edc-aaaa-4b4c-9f11-111111111111', 'MONTHLY', 250.00, '2025-11-01T00:00:00Z', NULL);
 
 -- === Consumptions ===
 -- === Consumptions (MONTHLY) — METER2 2024-2025 ===

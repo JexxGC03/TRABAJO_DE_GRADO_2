@@ -47,36 +47,44 @@ public class LoginService implements LoginUseCase {
         if (user.status() == UserStatus.BLOCKED) {
             throw new ForbiddenException("User is blocked after multiple failed attempts");
         }
-        // lookup hash
-        var hash = credentials.findByUserId(user.id())
+
+        // 1) Traer credencial (no el hash directamente)
+        var credential = credentials.findByUserId(user.id())
                 .orElseThrow(() -> new UnauthorizedException("Invalid credentials"));
 
-        // opcional: validar política para evitar passwords vacías enviadas
+        // 2) Validación de entrada
         if (cmd.password() == null || cmd.password().isBlank()) {
             throw new UnauthorizedException("Invalid credentials");
         }
 
-        // compare
-        if (!encoder.matches(cmd.password(), hash)) {
-            int attempts = securityRepo.incrementFailedAttempts(user.id()); // retorna contador actualizado
+        // 3) Comparar usando el string del hash
+        String storedHash = credential.passwordHash(); // <--- importante
+        if (!encoder.matches(cmd.password(), storedHash)) {
+            int attempts = securityRepo.incrementFailedAttempts(user.id());
             if (attempts >= MAX_ATTEMPTS) {
-                var blocked = user.withStatus(UserStatus.BLOCKED); // helper en tu agregado, o crea una copia
+                var blocked = user.withStatus(UserStatus.BLOCKED);
                 users.save(blocked);
                 securityRepo.resetFailedAttempts(user.id());
             }
             throw new UnauthorizedException("Invalid credentials");
         }
 
-        // éxito → reset intentos
+        // 4) Éxito → reset intentos
         securityRepo.resetFailedAttempts(user.id());
 
-        // emitir tokens
+        // 5) Emitir tokens y persistir refresh session
         var access  = jwt.generateAccessToken(user, 0);
         var refresh = jwt.generateRefreshToken(user, 0);
         var refreshExp = OffsetDateTime.now().plusSeconds(sessions.defaultRefreshTtlSeconds());
         sessions.save(RefreshSession.forUser(user.id(), refresh, sessions.defaultRefreshTtlSeconds()));
 
-        return mapper.toLoginResult("Bearer", access,
-                sessions.defaultAccessTtlSeconds(), refresh, refreshExp, user);
+        return mapper.toLoginResult(
+                "Bearer",
+                access,
+                sessions.defaultAccessTtlSeconds(),
+                refresh,
+                refreshExp,
+                user
+        );
     }
 }

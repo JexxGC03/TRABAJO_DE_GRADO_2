@@ -49,6 +49,11 @@ public class RefreshSessionRepositoryAdapter implements RefreshSessionRepository
         jpa.deleteByRefreshToken(token);
     }
 
+    @Override
+    public void deleteAllByUserId(UUID userId) {
+        jpa.deleteAllByUserId(userId);
+    }
+
     // helpers usados por services
     public void save(UUID userId, String token) {
         var now = OffsetDateTime.now();

@@ -12,6 +12,7 @@ public interface RefreshSessionRepository {
     Optional<RefreshSession> findByRefreshToken(String token);
     boolean existsByRefreshToken(String token);
     void deleteByRefreshToken(String token);
+    void deleteAllByUserId(UUID userId);
 
     // usados por tu servicio:
     int defaultAccessTtlSeconds();

@@ -18,8 +18,7 @@ public interface MeterQuotaJpaMapper {
         if (e == null) return null;
         return MeterQuota.rehydrate(
                 e.getId(),
-                e.getMeterId(),
-                MeterQuota.Periodicity.valueOf(e.getPeriodicity()),
+                e.getPeriodicity(),
                 e.getKwhLimit(),
                 e.getValidFrom(),
                 e.getValidTo()

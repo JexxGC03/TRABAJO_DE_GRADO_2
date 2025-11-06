@@ -1,5 +1,6 @@
 package com.ucdc.backend.infrastructure.persistence.entity;
 
+import com.ucdc.backend.domain.model.MeterQuota;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,13 +21,17 @@ import java.util.UUID;
 public class MeterQuotaEntity {
 
     @Id
-    private UUID id;
+    @Column(name = "meter_id", nullable = false)
+    private UUID id; // PK = FK a meters(id)
 
-    @Column(name="meter_id", nullable=false)
-    private UUID meterId;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "meter_id", nullable = false)
+    @MapsId
+    private MeterEntity meter;
 
-    @Column(nullable=false, length=16)
-    private String periodicity; // "MONTHLY"|"DAILY"
+    @Enumerated(EnumType.STRING)
+    @Column(name = "periodicity", nullable = false, length = 16)
+    private MeterQuota.Periodicity periodicity; // "MONTHLY"|"DAILY"
 
     @Column(name="kwh_limit", nullable=false, precision=18, scale=4)
     private BigDecimal kwhLimit;

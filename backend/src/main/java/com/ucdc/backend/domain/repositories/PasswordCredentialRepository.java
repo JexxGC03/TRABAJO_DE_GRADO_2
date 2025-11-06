@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PasswordCredentialRepository {
-    Optional<String> findByUserId(UUID userId);
+    Optional<PasswordCredential> findByUserId(UUID userId);
     PasswordCredential save(PasswordCredential credential);
     void deleteByUserId(UUID userId);
 }

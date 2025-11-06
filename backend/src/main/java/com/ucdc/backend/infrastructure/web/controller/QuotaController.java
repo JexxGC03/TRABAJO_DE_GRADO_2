@@ -27,18 +27,10 @@ public class QuotaController {
 
     // PUT /api/meters/{meterId}/quota
     @PutMapping
-    public ResponseEntity<QuotaResponse> upsert(
-            @PathVariable @NotNull UUID meterId,
-            @Valid @RequestBody QuotaRequest body) {
-
-        var cmd = new UpsertMeterQuotaUseCase.Command(
-                meterId,
-                MeterQuota.Periodicity.valueOf(body.periodicity()),
-                body.kwhLimit()
-        );
-        var res = upsert.handle(cmd);
-        var active = getActive.handle(new GetActiveMeterQuotaUseCase.Query(meterId));
-        return ResponseEntity.ok(mapper.toResponse(active));
+    public ResponseEntity<QuotaResponse> upsert(@PathVariable UUID meterId,
+                                                @Valid @RequestBody QuotaRequest req) {
+        var res = upsert.handle(meterId, mapper.toCommand(req));
+        return ResponseEntity.ok(mapper.toResponse(res));
     }
 
     // GET /api/meters/{meterId}/quota/active
