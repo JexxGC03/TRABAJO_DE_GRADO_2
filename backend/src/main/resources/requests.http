@@ -1,0 +1,226 @@
+### Registro exitoso
+POST http://localhost:8081/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Jesus",
+  "citizenId": "112154",
+  "email": "jgaitan345@gmail.com",
+  "serviceNumber": "444444",
+  "password": "Jesus1456&",
+  "confirmPassword": "Jesus1456&",
+  "phone": "+57 3002001234"
+}
+
+### Login
+POST http://localhost:8081/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "jgaitan345@gmail.com",
+  "password": "Jesus1456&"
+}
+
+### Refresh Token Exitoso
+POST http://localhost:8081/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZzItYXV0aCIsImF1ZCI6InRnMi1hcGkiLCJzdWIiOiI0N2U5YTM2Yy03ZWJkLTQyZjItOGY3MS02YmMyNWQzZTVmYmUiLCJ0eXAiOiJyZWZyZXNoIiwiZXhwIjoxNzY0NDM2NDI0LCJpYXQiOjE3NjE4NDQ0MjR9.PvYYjBNOB23k_n5iIaMTBcMfSTJu7CAUAb83nqRrYSc"
+}
+
+### Logout
+POST http://localhost:8081/api/auth/logout
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiN2IzNTQzM2QtZDQ3Ny00MTFlLTg4OGMtMWMzNTg5YjI3YjIxIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYyMDU0MTAyLCJpYXQiOjE3NjIwNTA1MDJ9.4ljPb9vA5apKSNtIoDswV2KJ5PIzTljm0DYJhk6Y2_o
+
+
+### Registro de Medidor Exitoso
+POST http://localhost:8081/api/meters
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiNDU0MTA0ZGEtMGQwMy00YjM1LWJiN2UtOTE0MGM4OGE0ODRhIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYyMDY3NDU1LCJpYXQiOjE3NjIwNjM4NTV9.V1MQMBYkk1zyzsP_Dl3bI-ozKxzu-Ka9EEgcblwFq7E
+
+{
+  "serialNumber": "111234",
+  "serviceNumber": "46488",
+  "installationAddress": "Calle 123",
+  "provider": "ENEL",
+  "alias": "Casa campo"
+}
+
+### Registro de Medidor Fallido | Serial Repetido
+POST http://localhost:8081/api/meters
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiN2IzNTQzM2QtZDQ3Ny00MTFlLTg4OGMtMWMzNTg5YjI3YjIxIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYyMDU0MTAyLCJpYXQiOjE3NjIwNTA1MDJ9.4ljPb9vA5apKSNtIoDswV2KJ5PIzTljm0DYJhk6Y2_o
+
+{
+  "serialNumber": "111234",
+  "serviceNumber": "1246467468",
+  "installationAddress": "Calle 123",
+  "provider": "ENEL",
+  "alias": "Casa campo"
+}
+
+### Registro de Medidor Fallido | Serial Repetido
+POST http://localhost:8081/api/meters
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiZTA5NmYyY2UtM2E0Zi00YmYzLWJjODgtNDdlOTQyZjQzNGUzIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxODQ4OTY5LCJpYXQiOjE3NjE4NDUzNjl9._c6kpNMKUHrFfWqRbp5Yf15CKy1xCB1UC2glW76PmoM
+
+{
+  "serialNumber": "74765787",
+  "serviceNumber": "46488",
+  "installationAddress": "Calle 123",
+  "provider": "ENEL",
+  "alias": "Casa campo"
+}
+
+### IntelliJ HTTP Client - TG2 backend requests
+@authHeader = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+@host = http://localhost:8081
+@meterId = 11111111-1111-1111-1111-111111111111
+@fullName = Jesus
+@userEmail = jgaitan345@gmail.com
+@password = Jesus1456&
+
+### AUTH: Register (Exitoso)
+POST http://localhost:8081/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Jesus",
+  "citizenId": "112154",
+  "email": "jgaitan345@gmail.com",
+  "serviceNumber": "444444",
+  "password": "Jesus1456&",
+  "confirmPassword": "Jesus1456&",
+  "phone": "+57 3002001234"
+}
+
+### 1) AUTH: Login (captures accessToken)
+POST {{host}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{userEmail}}",
+  "password": "{{password}}"
+}
+
+> {%
+    // Intenta parsear solo si es JSON; si no, muestra el body para depurar
+    const ct = (response.headers.valueOf('content-type') || '').toLowerCase();
+    let data = {};
+    if (ct.includes('application/json')) {
+        try { data = JSON.parse(response.body); }
+        catch (e) { client.log('Invalid JSON body:', response.body); throw e; }
+    } else {
+        client.log('Non-JSON response, content-type:', ct, 'body:', response.body);
+    }
+
+    const access  = data.accessToken || data.token || data.jwt;
+    const refresh = data.refreshToken || '';
+    const type    = data.tokenType || 'Bearer';
+
+    if (!access) throw new Error('No accessToken in response');
+
+    client.global.set('accessToken', access);
+    client.global.set('refreshToken', refresh);
+    client.global.set('tokenType', type);
+    client.global.set('authHeader', `${type} ${access}`);
+%}
+
+### Inspect captured token (optional)
+GET {{host}}/actuator/health
+Authorization: {{authHeader}}
+
+### 2) READINGS: Ingest sample accumulated kWh (2025-10-01..02)
+
+### Day 1
+POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+{ "timestamp": "2025-10-01T00:00:00Z", "kwhAccum": 100.00 }
+
+###
+POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+{ "timestamp": "2025-10-01T06:00:00Z", "kwhAccum": 101.50 }
+
+###
+POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+{ "timestamp": "2025-10-01T12:00:00Z", "kwhAccum": 103.00 }
+
+###
+POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+{ "timestamp": "2025-10-01T18:00:00Z", "kwhAccum": 104.25 }
+
+###
+POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+{ "timestamp": "2025-10-01T23:59:00Z", "kwhAccum": 105.00 }
+
+### Day 2
+POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+{ "timestamp": "2025-10-02T00:00:00Z", "kwhAccum": 105.00 }
+
+###
+POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+{ "timestamp": "2025-10-02T12:00:00Z", "kwhAccum": 106.20 }
+
+###
+POST http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/readings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+{ "timestamp": "2025-10-02T23:59:00Z", "kwhAccum": 107.10 }
+
+### 3) QUERIES
+
+### Monthly (expect total=7.10)
+GET http://localhost:8081/api/meters/cb2cfcc2-2e46-4f07-8957-c019f63095b1/consumption/monthly?period=2025-10
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+### Annual (2025, month 10 = 7.10)
+GET http://localhost:8081/api/meters/aa28230d-b957-4894-85fe-6e65f928b797/consumption/annual?year=2025
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+### Chart daily
+GET http://localhost:8081/api/meters/aa28230d-b957-4894-85fe-6e65f928b797/consumption/chart?from=2025-10-01&to=2025-10-02&granularity=DAILY
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0ZzItYXBpIiwic3ViIjoiYmQxNWVhOTgtZjE4MC00M2RjLTgwZGYtYzE4NzExYjRkZjZmIiwicm9sZSI6IkNMSUVOVCIsImlzcyI6InRnMi1hdXRoIiwidHlwIjoiYWNjZXNzIiwiZXhwIjoxNzYxOTMzNTA2LCJpYXQiOjE3NjE5Mjk5MDZ9.uypz8lDgoBKsM9x0XEajP_pzjtBOjFJwQK6RPGYM7SU
+
+### Chart monthly
+GET {{host}}/api/meters/{{meterId}}/consumption/chart?from=2025-10-01&to=2025-10-31&granularity=MONTHLY
+Authorization: Bearer {{accessToken}}
+
+### 4) Recommendations (optional)
+POST {{host}}/api/recommendations/generate
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "userId": "22222222-2222-2222-2222-222222222222",
+  "meterId": "{{meterId}}",
+  "analysisPeriod": "2025-10"
+}
+
+### 5) Swagger
+GET {{host}}/swagger-ui/index.html
+
+
