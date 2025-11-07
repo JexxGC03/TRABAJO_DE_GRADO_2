@@ -16,6 +16,7 @@ import java.time.ZoneOffset;
 public interface UserJpaMapper {
 
     /* ========= Entity → Domain ========= */
+    @Mapping(target = "meters", ignore = true)
     default User toDomain(UserEntity e) {
         if (e == null) return null;
 

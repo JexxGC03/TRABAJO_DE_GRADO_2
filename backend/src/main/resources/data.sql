@@ -16,11 +16,11 @@ VALUES ('33333333-3333-3333-3333-333333333333', 'Laura Gomez', 'laura.gomez@exam
 
 -- === Password credentials (bcrypt hashes) ===
 -- user carlos.perez@example.com: plain='Password123!'
-INSERT INTO password_credentials (user_id, password_hash, created_at, updated_at) VALUES ( '11111111-1111-1111-1111-111111111111', '$2b$10$LMgCd4nJ4g4V5Nuf59o7Cu.sah2332YmtCIJsN4xOJBqwkoCQPQ6W', '2025-10-01T08:00:00+00:00', '2025-10-01T08:00:00');
+INSERT INTO password_credentials (user_id, password_hash, created_at, updated_at, version) VALUES ( '11111111-1111-1111-1111-111111111111', '$2b$10$LMgCd4nJ4g4V5Nuf59o7Cu.sah2332YmtCIJsN4xOJBqwkoCQPQ6W', '2025-10-01T08:00:00+00:00', '2025-10-01T08:00:00', 0);
 -- user admin@example.com: plain='AdminPass!2025'
-INSERT INTO password_credentials (user_id, password_hash, created_at, updated_at) VALUES ( '22222222-2222-2222-2222-222222222222', '$2b$10$3NroGfWj/frefYH0sU9sIO6cRGnVErzbBxuVndnmoisOvHSBSG5fa', '2025-10-01T08:00:00+00:00', '2025-10-01T08:00:00');
+INSERT INTO password_credentials (user_id, password_hash, created_at, updated_at, version) VALUES ( '22222222-2222-2222-2222-222222222222', '$2b$10$3NroGfWj/frefYH0sU9sIO6cRGnVErzbBxuVndnmoisOvHSBSG5fa', '2025-10-01T08:00:00+00:00', '2025-10-01T08:00:00', 0);
 -- bcrypt hash de 'TestPass!2025' (ejemplo)
-INSERT INTO password_credentials (user_id, password_hash, created_at, updated_at) VALUES ('33333333-3333-3333-3333-333333333333', '$2a$12$lVu0uZaddGHF7ujGB8bVSuL7cwmcGEB6y0oyPsbztjhhe8nhajDai', '2025-10-15T08:00:00Z', '2025-10-15T08:00:00Z');
+INSERT INTO password_credentials (user_id, password_hash, created_at, updated_at, version) VALUES ('33333333-3333-3333-3333-333333333333', '$2a$12$lVu0uZaddGHF7ujGB8bVSuL7cwmcGEB6y0oyPsbztjhhe8nhajDai', '2025-10-15T08:00:00Z', '2025-10-15T08:00:00Z', 0);
 
 -- === Refresh sessions ===
 INSERT INTO refresh_sessions (id, user_id, refresh_token, expires_at, created_at)

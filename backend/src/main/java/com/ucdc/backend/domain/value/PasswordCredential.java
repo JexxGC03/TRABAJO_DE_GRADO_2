@@ -28,4 +28,8 @@ public record PasswordCredential(
     public PasswordCredential touch() {
         return new PasswordCredential(this.userId, this.passwordHash, OffsetDateTime.now());
     }
+
+    public PasswordCredential withPasswordHash(String newHash) {
+        return new PasswordCredential(this.userId, newHash, OffsetDateTime.now());
+    }
 }

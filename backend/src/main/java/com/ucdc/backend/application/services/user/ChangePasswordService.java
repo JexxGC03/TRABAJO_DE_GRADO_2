@@ -12,12 +12,15 @@ import com.ucdc.backend.domain.security.PasswordEncoder;
 import com.ucdc.backend.domain.security.PasswordPolicy;
 import com.ucdc.backend.domain.value.PasswordCredential;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -31,48 +34,44 @@ public class ChangePasswordService implements ChangePasswordUseCase {
 
     @Override
     public ChangePasswordResult handle(ChangePasswordCommand cmd) {
-        // 1) Validaciones superficiales
+        // 0) Validaciones básicas
         Objects.requireNonNull(cmd, "command");
-        if (cmd.userId() == null) throw new IllegalArgumentException("userId requerido");
+        UUID userId = Objects.requireNonNull(cmd.userId(), "userId requerido");
         if (cmd.currentPassword() == null || cmd.currentPassword().isBlank())
             throw new IllegalArgumentException("Contraseña actual requerida");
         if (cmd.newPassword() == null || cmd.newPassword().isBlank())
             throw new IllegalArgumentException("Nueva contraseña requerida");
-        if (!cmd.newPassword().equals(cmd.confirmNewPassword()))
-            throw new IllegalArgumentException("La nueva contraseña y su confirmación no coinciden");
 
-        // 2) Asegurar que el usuario exista (coherente con tu UpdateProfileService)
-        userRepo.findById(cmd.userId())
-                .orElseThrow(() -> new NotFoundException("User", cmd.userId()));
+        // 1) Usuario debe existir
+        userRepo.findById(userId).orElseThrow(() -> new NotFoundException("User", userId));
 
-        // 3) Buscar credencial actual
-        var currentCred = credentialRepo.findByUserId(cmd.userId())
+        // 2) Credencial actual
+        var current = credentialRepo.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundException("Password credential not found"));
 
-        // 4) Verificar contraseña actual
-        if (!encoder.matches(cmd.currentPassword(), currentCred.passwordHash())) {
-            throw new WrongPasswordException("");
+        // 3) Verificación de contraseña actual
+        if (!encoder.matches(cmd.currentPassword(), current.passwordHash())) {
+            throw new WrongPasswordException("La contraseña actual es incorrecta");
         }
 
-        // 5) Política de contraseñas (fuerza mínima, etc.)
+        // 4) Política y evitar reutilización
         policy.validate(cmd.newPassword());
-
-        // 6) Evitar que la nueva sea igual a la actual
-        if (encoder.matches(cmd.newPassword(), currentCred.passwordHash())) {
+        if (encoder.matches(cmd.newPassword(), current.passwordHash())) {
             throw new IllegalArgumentException("La nueva contraseña no puede ser igual a la actual");
         }
 
-        // 7) Generar nuevo hash y persistir
+        // 5) Generar nuevo hash y persistir (dominio inmutable → withPasswordHash)
         var newHash = encoder.encode(cmd.newPassword());
-        var saved = credentialRepo.save(PasswordCredential.forUser(cmd.userId(), newHash));
+        var updated = current.withPasswordHash(newHash);
+        var saved = credentialRepo.save(updated); // el adapter hace update in-place
 
-        // 8) Invalidar sesiones de refresh (opcional pero recomendado)
-        if (refreshRepo != null) {
-            refreshRepo.deleteAllByUserId(cmd.userId());
-        }
+        // 6) (Opcional) invalidar sesiones de refresh; no bloquear el flujo si falla
+        try {
+            refreshRepo.deleteAllByUserId(userId);
+        } catch (Exception ignored) { }
 
-        // 9) Responder
-        var updatedAt = saved.updatedAt() != null ? saved.updatedAt() : OffsetDateTime.now();
-        return new ChangePasswordResult(updatedAt);
+        // 7) Responder con la marca de tiempo efectiva
+        var when = (saved.updatedAt() != null) ? saved.updatedAt() : OffsetDateTime.now();
+        return new ChangePasswordResult(when);
     }
 }

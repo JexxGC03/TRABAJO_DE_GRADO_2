@@ -5,6 +5,7 @@ import com.ucdc.backend.domain.value.PasswordCredential;
 import com.ucdc.backend.infrastructure.persistence.entity.PasswordCredentialEntity;
 import com.ucdc.backend.infrastructure.persistence.mapper.CredentialJpaMapper;
 import com.ucdc.backend.infrastructure.persistence.repositories.JpaPasswordCredentialRepository;
+import com.ucdc.backend.infrastructure.persistence.repositories.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class PasswordCredentialRepositoryAdapter implements PasswordCredentialRepository {
 
     private final JpaPasswordCredentialRepository jpa;
+    private final JpaUserRepository userJpa;
     private final CredentialJpaMapper mapper;
 
     @Override
@@ -28,9 +30,23 @@ public class PasswordCredentialRepositoryAdapter implements PasswordCredentialRe
 
     @Override
     public PasswordCredential save(PasswordCredential credential) {
-        var entity = mapper.toEntity(credential);
-        var saved = jpa.save(entity);
-        return mapper.toDomain(saved);
+        var userId = credential.userId();
+
+        if (jpa.existsById(userId)) {
+            // === UPDATE IN-PLACE (ENTIDAD YA MANAGED) ===
+            var e = jpa.getReferenceById(userId);
+            e.setPasswordHash(credential.passwordHash());
+            e.setUpdatedAt(credential.updatedAt().toLocalDateTime());
+            // no llames a save: ya está administrada; devuelve mapeo
+            return mapper.toDomain(e);
+        } else {
+            // === CREATE ===
+            var e = mapper.toEntity(credential);
+            // Si usas @MapsId, debes setear la referencia al User
+            e.setUser(userJpa.getReferenceById(userId));
+            var saved = jpa.save(e);
+            return mapper.toDomain(saved);
+        }
     }
 
     @Override

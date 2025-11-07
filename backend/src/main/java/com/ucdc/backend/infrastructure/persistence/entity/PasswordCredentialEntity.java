@@ -17,16 +17,12 @@ import java.util.UUID;
         uniqueConstraints = @UniqueConstraint(name = "uk_cred_user", columnNames = "user_id"))
 public class PasswordCredentialEntity {
 
-    /** FK = PK (1:1 con User). Lo estableces manualmente con el id del usuario. */
     @Id
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", nullable = false, updatable = false)
     private UUID userId;
 
-    /** Relación solo-lectura para navegación; NO escribe la FK (la escribe userId). */
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id",
-            foreignKey = @ForeignKey(name = "fk_cred_user"),
-            insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY) @MapsId
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @Column(name = "password_hash", nullable = false, length = 255)
